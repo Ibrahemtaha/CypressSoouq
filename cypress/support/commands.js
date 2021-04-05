@@ -23,15 +23,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-import Login from '../../support/pageObjects/login'
+
+//import Login from '../../support/pageObjects/login'
 
 Cypress.Commands.add("Signin", ()=>{
-  const login = new Login() // an Object from Login Class
+  // const login = new Login() // an Object from Login Class
 
   cy.visit("/")
   cy.title().should('eq','Login - FleetCart')    // Title asserion
-  login.email().type(Cypress.env('email'))
-  login.password().type(Cypress.env('password'))
-  login.signInButtom().contains('Login').should('be.visible').click()
+  cy.get('input[type="text"]').type(Cypress.env('email'))
+  cy.get('input[type="password"]').type(Cypress.env('password'))
+  cy.get('.btn').contains('Login').contains('Login').should('be.visible').click()
   cy.title().should('eq', 'Dashboard - FleetCart Admin')
 })
