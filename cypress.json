@@ -1,0 +1,8 @@
+{
+  "baseUrl": "http://es.marvelcoders.com/en/admin/login",
+  "env": {
+    "email": "test@gmail.com",
+    "password": "123456"
+
+  }
+}
