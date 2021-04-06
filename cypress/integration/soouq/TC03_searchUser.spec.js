@@ -4,10 +4,12 @@ import Searchuser from '../../support/pageObjects/Searchuser'
 describe('SearchUser', ()=>{
   const searchuser = new Searchuser() // an Object from Login Class
   // Login
-  beforeEach( ()=>{
+  before( ()=>{
+    //cy.visit("/")
     cy.Signin()
+    Cypress.Cookies.preserveOnce('fleetcart_session', 'XSRF-TOKEN')
   })
-  // Search User by Email
+  // 1) Search User by Email
   it('SearchUserEmail', ()=>{
     searchuser.menuXpath().click()
     searchuser.menuItemXpath().click()
@@ -17,6 +19,7 @@ describe('SearchUser', ()=>{
     cy.wait(3000)
      // Assert Email address
     searchuser.table().contains('td','ww@gmail.com').should('be.visible')
+
   })
   // 2) Search User by Name
   it('SearchUserName', ()=> {

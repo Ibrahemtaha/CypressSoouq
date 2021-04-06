@@ -1,28 +1,36 @@
 /// <reference types="Cypress"/>
-import Login from '../../support/pageObjects/login'
+import AddUser from '../../support/pageObjects/addUser'
+const faker = require("faker");
 
 describe('addUser', ()=>{
+  const addUser = new AddUser() // an Object from Login Class
   // Login
   before( ()=>{
     cy.Signin()
+    Cypress.Cookies.preserveOnce('fleetcart_session', 'XSRF-TOKEN')
   })
   // Add User
   it('addUser', ()=>{
-    //cy.get('a').should('have.attr', 'href').and('equal', '/users').click()
-    cy.xpath('//body/aside[1]/section[1]/ul[1]/li[9]/a[1]').click()
-    cy.xpath('/html/body/aside/section/ul/li[9]/ul/li[1]/a/span').click()
-    cy.get('span').contains("Users").click()
-    cy.get('.btn.btn-primary.btn-actions.btn-create').contains('Create User').click()
+    addUser.userDropdown().click()
+    addUser.userDropdownItem().click()
+    addUser.usersItem().click()
+    addUser.createUserButom().click()
     // Fill user information
-    cy.get('input[name="first_name"]').type("Ibrahem")
-    cy.get('input[name="last_name"]').type("Ibrahem")
-    cy.get('input[name="email"]').type("Ibrahemee@gmail.com")
-    cy.get('input[type="select-multiple"]').type('Admin').type('{downarrow}').select().type('{enter}') /// here is the problem
+    addUser.firstName().type("Ibrahem")
+    addUser.lastName().type("Ibrahem")
+    let randomEmail = faker.internet.email();
+    addUser.email().type(randomEmail)
+    addUser.role().type('Admin').tab() 
+    cy.get('h3').contains('Account').should('be.visible').click()  // Click outside
     cy.wait(2000)
-    cy.get('input[name="password"]').type("Ibrahem12!@")
-    cy.get('input[name="password_confirmation"]').type("Ibrahem12!@")
-    cy.get('.btn').contains('Save').should('be.visible').click()
+    addUser.password().type("Ibrahem12!@")
+    addUser.confirmPassword().type("Ibrahem12!@")
+    addUser.button().click()
     // Assert User
+    addUser.inputSearch().clear().type(randomEmail)
+    cy.wait(3000)
+    addUser.table().contains('td',randomEmail).should('be.visible')
+
 
   })
 
@@ -32,9 +40,9 @@ describe('addUser', ()=>{
   })
 })
 
-// Github upload files commands, + ignore node modules
-// Hook problem (before)
-// Roles issue 
+
+
+// JAvascript function for random email address generator, 
 // Assert New user  (in function )
 // Edit\Update user (another test)
 // move most of that to pageObjects 
