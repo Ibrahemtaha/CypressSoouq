@@ -41,8 +41,5 @@ describe('addUser', ()=>{
 })
 
 
-
-// JAvascript function for random email address generator, 
-// Assert New user  (in function )
+// next:
 // Edit\Update user (another test)
-// move most of that to pageObjects 
