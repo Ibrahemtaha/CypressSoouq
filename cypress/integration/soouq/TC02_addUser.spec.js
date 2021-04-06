@@ -17,7 +17,7 @@ describe('addUser', ()=>{
     cy.get('input[name="first_name"]').type("Ibrahem")
     cy.get('input[name="last_name"]').type("Ibrahem")
     cy.get('input[name="email"]').type("Ibrahemee@gmail.com")
-    cy.get('input[type="select-multiple"]').select().type('Admin').type('{downarrow}').type('{enter}') /// here is the problem
+    cy.get('input[type="select-multiple"]').type('Admin').type('{downarrow}').select().type('{enter}') /// here is the problem
     cy.wait(2000)
     cy.get('input[name="password"]').type("Ibrahem12!@")
     cy.get('input[name="password_confirmation"]').type("Ibrahem12!@")
@@ -25,10 +25,16 @@ describe('addUser', ()=>{
     // Assert User
 
   })
+
+  it('updateUser', ()=> {
+    // Click on users
+    console.log('updateUser')
+  })
 })
 
 // Github upload files commands, + ignore node modules
 // Hook problem (before)
 // Roles issue 
-// Assert New user 
+// Assert New user  (in function )
+// Edit\Update user (another test)
 // move most of that to pageObjects 
